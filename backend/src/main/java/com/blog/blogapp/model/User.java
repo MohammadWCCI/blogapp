@@ -12,8 +12,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+@Data
+@Table(name = "Users")
+@Entity(name = "Users")
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +36,6 @@ public class User {
     private Set<BlogPost> blogPosts = new HashSet<>();
 
     // Constructors, getters, and setters
-
-    public User() {
-        // Default constructor
-    }
-
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
