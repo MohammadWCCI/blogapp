@@ -1,0 +1,3 @@
+rootProject.name = 'blogapp'
+// project(':backend').projectDir = new File('path_to_backend_directory')
+// project(':frontend').projectDir = new File('path_to_frontend_directory')
