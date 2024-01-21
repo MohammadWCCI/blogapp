@@ -5,6 +5,7 @@ import  { useEffect, useState } from 'react';
 const AboutMe = () => {
   // State to store user information
   const [userData, setUserData] = useState(null);
+  
 
   // Simulating user authentication and fetching user data
   useEffect(() => {
@@ -13,6 +14,7 @@ const AboutMe = () => {
     const fetchUserData = async () => {
       // Simulating an API request delay (remove this in a real application)
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      await axios.get(`http://localhost:8080/api/about-me/${username}`)
       
       // Mock user data (replace with actual logic)
       const mockUserData = {

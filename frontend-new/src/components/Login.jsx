@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  async function handleSubmit (e){
     e.preventDefault();
     // Add logic for submitting the form data (e.g., send to backend API)
     console.log('Form submitted:', formData);
@@ -28,6 +28,7 @@ const Login = () => {
       username: '',
       password: '',
     });
+    await axios.post("http://localhost:8080/api/users/login", formData)
   };
 
   return (
