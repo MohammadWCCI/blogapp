@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.blogapp.model.BlogPost;
+import com.blog.blogapp.model.User;
 import com.blog.blogapp.repo.BlogPostRepository;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class BlogPostService {
         return blogPostRepository.findAll();
     }
 
-    public List<BlogPost> getBlogPostsByUser(String username) {
-        return blogPostRepository.findByAuthor_Username(username);
+    public List<BlogPost> getBlogPostsByUser(User user) {
+        return blogPostRepository.findByAuthor(user);
     }
 }

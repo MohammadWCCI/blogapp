@@ -4,6 +4,8 @@ package com.blog.blogapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import com.blog.blogapp.model.User;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@Secured({"ROLE_USER"})
 @RequestMapping("/api/users")
 public class UserController {
     
@@ -26,8 +29,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody User user) {
         // Add validation and password hashing logic in the service
-        System.out.println("test" + user);
-        User createdUser = new User(user.getUsername(),  user.getPassword(), user.getEmail());
+        User createdUser = new User(user.getUsername(),  user.getPassword(), user.getEmail(), user.getFullName());
         userRepository.save(createdUser);
         return ResponseEntity.ok("User signed up successfully!");
     }

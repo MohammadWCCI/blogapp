@@ -3,11 +3,16 @@ package com.blog.blogapp.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.blog.blogapp.model.BlogPost;
+import com.blog.blogapp.model.User;
+import com.blog.blogapp.repo.UserRepository;
 import com.blog.blogapp.service.BlogPostService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -15,7 +20,9 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/blogposts")
 public class BlogPostController {
-   
+    
+    @Autowired
+    UserRepository userRepository;
     BlogPostService blogPostService;
 
 
@@ -34,7 +41,10 @@ public class BlogPostController {
 
     @GetMapping("/user/{username}")
     public ResponseEntity<List<BlogPost>> getBlogPostsByUser(@PathVariable String username) {
-        List<BlogPost> blogPosts = blogPostService.getBlogPostsByUser(username);
-        return ResponseEntity.ok(blogPosts);
+        List<BlogPost> blogPosts = userRepository.findByUsername(username).map(user -> {
+            return blogPostService.getBlogPostsByUser(user);
+        }).orElseThrow(() -> new EntityNotFoundException("User Not Found: "+username+" Not Found"));
+
+        return new ResponseEntity<>(blogPosts, HttpStatus.OK);
     }
 }

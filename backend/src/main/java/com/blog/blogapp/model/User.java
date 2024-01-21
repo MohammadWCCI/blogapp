@@ -29,67 +29,31 @@ public class User {
     private String username;
     private String password;
     private String email;
-    // private String fullName;
-    // private String aboutMe;
+    private String fullName;
+    private String aboutMe;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BlogPost> blogPosts = new HashSet<>();
 
     // Constructors, getters, and setters
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, String fullName) {
         this.username = username;
         this.password = password;
         this.email = email;
-        // this.fullName = fullName;
-        // this.aboutMe = aboutMe;
-    }
-
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    // public String getFullName() {
-    //     return fullName;
-    // }
-
-    // public String getAboutMe() {
-    //     return aboutMe;
-    // }
-
-    public Set<BlogPost> getBlogPosts() {
-        return blogPosts;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        // You might want to hash the password before setting it
+        this.fullName = fullName;
+        this.aboutMe = "";
     }
 
     // Other utility methods
+    // public void addBlogPost(BlogPost blogPost) {
+    //     blogPosts.add(blogPost);
+    //     blogPost.setAuthor(this);
+    // }
 
-    public void addBlogPost(BlogPost blogPost) {
-        blogPosts.add(blogPost);
-        blogPost.setAuthor(this);
-    }
-
-    public void removeBlogPost(BlogPost blogPost) {
-        blogPosts.remove(blogPost);
-        blogPost.setAuthor(null);
-    }
+    // public void removeBlogPost(BlogPost blogPost) {
+    //     blogPosts.remove(blogPost);
+    //     blogPost.setAuthor(null);
+    // }
 
     // Override toString() for better logging or debugging
     @Override
@@ -99,8 +63,13 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                // ", fullName='" + fullName + '\'' +
-                // ", aboutMe='" + aboutMe + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", aboutMe='" + aboutMe + '\'' +
                 '}';
+    }
+
+    public static Object withDefaultPasswordEncoder() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'withDefaultPasswordEncoder'");
     }
 }
